@@ -1,0 +1,43 @@
+{
+  "name": "bxslider",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "del": "^2.2.1",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.4.0",
+    "gulp-watch": "^4.3.5",
+    "node-normalize-scss": "^1.0.3",
+    "normalize.css": "^3.0.3"
+  },
+  "devDependencies": {
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-notify": "^2.2.0",
+    "run-sequence": "^1.2.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "HTML5-Boilerplate-Min",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hieu-brain/HTML5-Boilerplate-Min.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hieu-brain/HTML5-Boilerplate-Min/issues"
+  },
+  "h5bp-configs": {
+    "directories": {
+      "archive": "archive",
+      "dist": "dist",
+      "src": "src",
+      "test": "test"
+    }
+  },
+  "homepage": "https://github.com/hieu-brain/HTML5-Boilerplate-Min#readme"
+}
