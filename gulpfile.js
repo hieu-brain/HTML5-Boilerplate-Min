@@ -34,7 +34,8 @@ gulp.task('styles', function() {
         .pipe(autoprefixer({
             browsers: ["last 2 versions", "Android >= 4.2", "ios >= 8", "ie >= 9"]
         }))
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest('dist/css'))
+        .pipe(gulp.dest('src/css'));
 });
 
 //HTML
