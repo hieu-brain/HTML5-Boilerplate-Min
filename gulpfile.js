@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
-var path = require('path');
 var sass = require('gulp-ruby-sass');
 var watch = require('gulp-watch');
 var sourcemaps = require('gulp-sourcemaps');
@@ -13,7 +12,6 @@ gulp.task('server', function () {
     browserSync.init({
         online: true,
         open: 'external',
-        ghostMode: false,
         injectChanges: true,
         startPath: "/",
         browser: 'google chrome',//['firefox'],
@@ -39,8 +37,8 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('dist/css'));
 });
 
-//Sass
-gulp.task('copy-html', function() {
+//HTML
+gulp.task('html', function() {
     return gulp.src('src/*.html')
         .pipe(gulp.dest('dist'));
 });
@@ -59,35 +57,17 @@ gulp.task('scripts', function() {
 //Watches task
 gulp.task('watch', function(){
     // Watch .scss files
-    // gulp.watch('src/css/**/*.scss', ['styles']);
-    watch('./**/scss/**/*.scss',
-        function (file) {
-            var scssPath = path.dirname(file.path).split(path.sep).slice(0, path.dirname(file.path).split(path.sep).lastIndexOf('scss') + 1).join(path.sep);
-            return sass(scssPath, {
-                style: 'expanded',
-                compass: true,
-                sourcemap: false
-            })
-                .on('error', function (err) {
-                    console.error('Error', err.message);
-                })
-                .pipe(sourcemaps.write(gulp.dest(path.resolve(scssPath, './dist/css/'))))
-                .pipe(gulp.dest(path.resolve(scssPath, './dist/css/')))
-                .pipe(browserSync.stream());
-        });
+    gulp.watch('src/scss/**/*.scss', ['styles']);
 
     // Watch .js files
     gulp.watch('src/js/**/*.js', ['scripts']);
 
-    // Watch image files
-    gulp.watch('src/images/**/*', ['images']);
-
     // Watch html files
-    gulp.watch('src/*.html', ['copy-html','bs-reload']);
+    gulp.watch('src/*.html', ['html','bs-reload']);
 });
 
 // Run
-gulp.task('default', ['watch', 'server', 'styles', 'copy-html', 'scripts'], function () {
+gulp.task('default', ['watch', 'server', 'styles', 'html', 'scripts'], function () {
     gulp.watch("./dist/*.html", ['bs-reload']);
     gulp.watch("./dist/css/*.css", ['bs-reload']);
     gulp.watch("./dist/js/*.js", ['bs-reload']);
