@@ -30,12 +30,13 @@ gulp.task('server', function () {
 //Styles Task
 //Sass
 gulp.task('styles', function() {
-    return sass('src/scss/site.scss', { style: 'expanded' })
+    return sass('src/parts/scss/site.scss', { style: 'expanded' })
         .pipe(autoprefixer({
             browsers: ["last 2 versions", "Android >= 4.2", "ios >= 8", "ie >= 9"]
         }))
-        .pipe(gulp.dest('dist/css'))
-        .pipe(gulp.dest('src/css'));
+        .pipe(gulp.dest('dist/parts/css'))
+        .pipe(gulp.dest('src/parts/css'))
+        .pipe(browserSync.stream());
 });
 
 //HTML
@@ -49,19 +50,24 @@ gulp.task('bs-reload', function () {
     browserSync.reload();
 });
 
+// Reload Browser
+gulp.task('bs-stream', function () {
+    browserSync.stream();
+});
+
 gulp.task('scripts', function() {
-    return gulp.src('src/js/**/*.js')
+    return gulp.src('src/parts/js/**/*.js')
         .pipe(concat('main.js'))
-        .pipe(gulp.dest('dist/js'));
+        .pipe(gulp.dest('dist/parts/js'));
 });
 
 //Watches task
 gulp.task('watch', function(){
     // Watch .scss files
-    gulp.watch('src/scss/**/*.scss', ['styles']);
+    gulp.watch('src/parts/scss/**/*.scss', ['styles']);
 
     // Watch .js files
-    gulp.watch('src/js/**/*.js', ['scripts']);
+    gulp.watch('src/parts/js/**/*.js', ['scripts']);
 
     // Watch html files
     gulp.watch('src/*.html', ['html','bs-reload']);
@@ -70,6 +76,6 @@ gulp.task('watch', function(){
 // Run
 gulp.task('default', ['watch', 'server', 'styles', 'html', 'scripts'], function () {
     gulp.watch("./dist/*.html", ['bs-reload']);
-    gulp.watch("./dist/css/*.css", ['bs-reload']);
-    gulp.watch("./dist/js/*.js", ['bs-reload']);
+    gulp.watch("./dist/parts/css/*.css", ['bs-stream']);
+    gulp.watch("./dist/parts/js/*.js", ['bs-reload']);
 });
